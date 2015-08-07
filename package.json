@@ -14,7 +14,8 @@
   "keywords": [
     "nitpick",
     "type",
-    "static types",
+    "types",
+    "static",
     "check",
     "validator"
   ],
