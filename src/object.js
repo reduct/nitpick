@@ -5,8 +5,6 @@ import {
 } from './utilities/';
 import * as any from './any.js';
 
-console.log(isObject, isDefined)
-
 /**
  * Extends the general required validator for the type `Object`.
  *
