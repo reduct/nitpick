@@ -7,8 +7,7 @@
 ## Validators
 The validators will, as the name states, validate as well as optionally transform the values into the requested types.
 
-F.e. if you expect a `Number`and the user passes in a `String` containing a `Number`, the validator will transform the value into a number.
-If this fails, the returned object contains a `false` result key value pair.
+F.e. if you expect a `Number`and the user passes in a `String` containing a `Number`, the validator will transform the value into a number. If the validation/transformation fails, the validator returns an Error object with a detailed message you can then `throw`.
 
 ##### propTypes.any.isRequired
 Will expect that the passed value is not `undefined` or `null`, and returns an `Error` if the validation has failed.
