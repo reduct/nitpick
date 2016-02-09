@@ -1,7 +1,7 @@
 # @reduct/nitpick
 [![Build Status](https://travis-ci.org/reduct/nitpick.svg)](https://travis-ci.org/reduct/nitpick) [![Dependency Status](https://david-dm.org/reduct/nitpick.svg)](https://david-dm.org/reduct/nitpick) [![devDependency Status](https://david-dm.org/reduct/nitpick/dev-status.svg)](https://david-dm.org/reduct/nitpick#info=devDependencies) [![Code Climate](https://codeclimate.com/github/reduct/nitpick/badges/gpa.svg)](https://codeclimate.com/github/reduct/nitpick) [![Test Coverage](https://codeclimate.com/github/reduct/nitpick/badges/coverage.svg)](https://codeclimate.com/github/reduct/nitpick/coverage)
 
-> Type validators for the @reduct/component.
+> Type validators for the @reduct/component package.
 
 
 ## Validators
@@ -10,35 +10,35 @@ The validators will, as the name states, validate as well as optionally transfor
 F.e. if you expect a `Number`and the user passes in a `String` containing a `Number`, the validator will transform the value into a number.
 If this fails, the returned object contains a `false` result key value pair.
 
-##### propTypes.isRequired
-Will expect that the given key is present in either the passed props Object, the elements dataset or in the `getDefaultProps()` method.
+##### propTypes.any.isRequired
+Will expect that the passed value is not `undefined` or `null`, and returns an `Error` if the validation has failed.
 
-##### propTypes.isOptional
-Will log an info message into the UA's console if the given key is not present in either the passed Props-Object, the elements dataset or in the `getDefaultProps()` method.
+##### propTypes.any.isOptional
+Will expect that the passed value is not `undefined` or `null`, and always returns an object containing `result` and `value` key/value pairs.
 
-##### propTypes.isString.isRequired
-Like the basic `propTypes.isRequired` validator, but it also expects that the value is a `String`.
+##### propTypes.string.isRequired
+Inherits the behavior of `propTypes.any.isRequired`, but it expects that the value is a `String`.
 
-##### propTypes.isString.isOptional
-Like the basic `propTypes.isOptional` validator, but will also expect a `String` as the value.
+##### propTypes.string.isOptional
+Inherits the behavior of `propTypes.any.isOptional`, but it expects that the value is a `String`.
 
-##### propTypes.isBoolean.isRequired
-Like the basic `propTypes.isRequired` validator, but it also expects that the value is either a `Boolean`, or a `String` containing a `Boolean`.
+##### propTypes.bool.isRequired
+Inherits the behavior of `propTypes.any.isRequired`, but it expects that the value is either a `Boolean` or a `String` which can be converted to a `Boolean`.
 
-##### propTypes.isBoolean.isOptional
-Like the basic `propTypes.isOptional` validator, but will also expect a `Boolean` as the value.
+##### propTypes.bool.isOptional
+Inherits the behavior of `propTypes.any.isOptional`, but it expects that the value is either a `Boolean` or a `String` which can be converted to a `Boolean`.
 
-##### propTypes.isNumber.isRequired
-Like the basic `propTypes.isRequired` validator, but it also expects that the value is either a `Number`, or a `String` containing a `Number`.
+##### propTypes.number.isRequired
+Inherits the behavior of `propTypes.any.isRequired`, but it expects that the value is either a `Number` or a `String` containing a `Number`.
 
-##### propTypes.isNumber.isOptional
-Like the basic `propTypes.isOptional` validator, but will also expect a `Number` as the value.
+##### propTypes.number.isOptional
+Inherits the behavior of `propTypes.any.isOptional`, but it expects that the value is either a `Number` or a `String` containing a `Number`.
 
-##### propTypes.isObject.isRequired
-Like the basic `propTypes.isRequired` validator, but it also expects that the value is either a valid `Object`, or a `String` containing a JSON `Object`.
+##### propTypes.object.isRequired
+Inherits the behavior of `propTypes.any.isRequired`, but it expects that the value is either a valid `Object` or a `String` containing a JSON `Object`.
 
-##### propTypes.isObject.isOptional
-Like the basic `propTypes.isOptional` validator, but will also expect a `Object` as the value.
+##### propTypes.object.isOptional
+Inherits the behavior of `propTypes.any.isOptional`, but it expects that the value is either a valid `Object` or a `String` containing a JSON `Object`.
 
 
 ## Contributing
