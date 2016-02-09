@@ -1,74 +1,53 @@
 import {
-    isDefined,
-	isObject,
-	logger
+	isDefined,
+	isError,
+	isObject
 } from './utilities/';
 import * as any from './any.js';
 
 /**
  * Extends the general required validator for the type `Object`.
  *
- * @param propValue {*} The value which will be validated.
- * @param propName {String} The name which will be logged in case of errors.
- * @param el {HTMLElement} The element on which the value was expected on.
- * @returns {{result: boolean, value: *}}
+ * @param val {*} The value which will be validated.
+ * @returns {Error|*} Either an Error of the passed value if defined.
  *
  */
-export const isRequired = (propValue, propName, el) => {
-	let result = true;
-	let isValidObject;
+export const isRequired = val => {
+	const requiredResult = any.isRequired(val);
 
-	// Since The prop is required, check for it's value beforehand.
-	any.isRequired.apply(this, arguments);
-
-	// If the passed Property is a string, convert it to a JSON object beforehand.
-	try {
-		propValue = JSON.parse(propValue);
-	} catch (e) {}
-
-	// Verify the type of the value.
-	isValidObject = isObject(propValue);
-
-	if (!isValidObject) {
-		logger.error('The prop "' + propName + '" is not an valid JSON object. ', el);
-		result = false;
+	if (isError(requiredResult)) {
+		return requiredResult;
 	}
 
-	return {
-		result: result,
-		value: propValue
-	};
+    // Try to convert the value to a JSON object.
+	try {
+		val = JSON.parse(val);
+	} catch (e) {}
+
+	if (!isObject(val)) {
+		return new Error(`The value is required and must be a "Object", instead got "${typeof val}".`);
+	}
+
+	return val;
 };
 
+
 /**
- * Extends the general optional validator for the type `Object`.
+ * Extends the general optional validator for the type `Boolean`.
  *
- * @param propValue {*} The value which will be validated.
- * @param propName {String} The name which will be logged in case of errors.
- * @param el {HTMLElement} The element on which the value was expected on.
- * @returns {{result: boolean, value: *}}
+ * @param val {*} The value which will be validated.
+ * @returns {Error|*} Either an error or the value which was passed to the validator.
  *
  */
-export const isOptional = (propValue, propName, el) => {
-	const isPropValueDefined = isDefined(propValue);
-	let result = true;
-	let isValidObject;
-
-	// If the passed Property is a string, convert it to a JSON object beforehand.
+export const isOptional = val => {
+	// Try to convert the value to a JSON object.
 	try {
-		propValue = JSON.parse(propValue);
+		val = JSON.parse(val);
 	} catch (e) {}
 
-	// Verify the type of the value.
-	isValidObject = isObject(propValue);
-
-	if (isPropValueDefined && !isValidObject) {
-		logger.error('The prop "' + propName + '" is not an valid JSON object. ', el);
-		result = false;
+	if (isDefined(val) && !isObject(val)) {
+		return new Error(`The value is optional, but must be a "Object", instead got "${typeof val}".`);
 	}
 
-	return {
-		result: result,
-		value: propValue
-	};
+	return val;
 };

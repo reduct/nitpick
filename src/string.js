@@ -1,56 +1,46 @@
 import {
+	isDefined,
 	isString,
-	logger
+	isError
 } from './utilities/';
 import * as any from './any.js';
 
 /**
  * Extends the general required validator for the type `String`.
  *
- * @param propValue {*} The value which will be validated.
- * @param propName {String} The name which will be logged in case of errors.
- * @param el {HTMLElement} The element on which the value was expected on.
- * @returns {{result: boolean, value: *}}
+ * @param val {*} The value which will be validated.
+ * @returns {Error|*} Either an Error of the passed value if defined.
  *
  */
-export const isRequired = (propValue, propName, el) => {
-	const isValidString = isString(propValue);
-	let result = true;
+export const isRequired = val => {
+	const requiredResult = any.isRequired(val);
+	const isValueNotValidString = !isString(val);
 
-	// Since The prop is required, check for it's value beforehand.
-	any.isRequired.apply(this, arguments);
-
-	if (!isValidString) {
-		logger.error('The prop "' + propName + '" is not a string. ', el);
-		result = false;
+	if (isError(requiredResult)) {
+		return requiredResult;
 	}
 
-	return {
-		result: result,
-		value: propValue
-	};
+	if (isValueNotValidString) {
+		return new Error(`The value is required and must be a "String", instead got "${typeof val}".`);
+	}
+
+	return val;
 };
+
 
 /**
  * Extends the general optional validator for the type `String`.
  *
- * @param propValue {*} The value which will be validated.
- * @param propName {String} The name which will be logged in case of errors.
- * @param el {HTMLElement} The element on which the value was expected on.
- * @returns {{result: boolean, value: *}}
+ * @param val {*} The value which will be validated.
+ * @returns {Error|*} Either an error or the value which was passed to the validator.
  *
  */
-export const isOptional = (propValue, propName, el) => {
-	const isValidString = isString(propValue);
-	let result = true;
+export const isOptional = val => {
+	const isValueNoString = !isString(val);
 
-	if (!isValidString) {
-		logger.error('The prop "' + propName + '" is not a string. ', el);
-		result = false;
+	if (isDefined(val) && isValueNoString) {
+		return new Error(`The value is optional, but must be a "String", instead got "${typeof val}".`);
 	}
 
-	return {
-		result: result,
-		value: propValue
-	};
+	return isDefined(val) ? val : undefined;
 };

@@ -1,48 +1,37 @@
-import {
-	isDefined,
-	logger
-} from './utilities/';
+import {isDefined} from './utilities/';
 
 /**
  * Represents a general required check against a value.
  *
- * @param propValue {*} The value which will be validated.
- * @param propName {String} The name which will be logged in case of errors.
- * @param el {HTMLElement} The element on which the value was expected on.
- * @returns {{result: boolean, value: *}}
+ * @param val {*} The value which will be validated.
+ * @returns {Error|*} Either an Error of the passed value if defined.
  *
  */
-export const isRequired = (propValue, propName, el) => {
-	const isPropInProps = isDefined(propValue);
+export const isRequired = val => {
+	const isValueDefined = isDefined(val);
 
-	if (!isPropInProps) {
-		logger.error('The prop "' + propName + '" is required and wasn‘t found on: ', el);
+	if (!isValueDefined) {
+		return new Error(`The value is required but is either "undefined" or "null".`);
 	}
 
-	return {
-		result: isPropInProps,
-		value: propValue
-	};
+	return val;
 };
 
 /**
  * Represents a general optional check against a value.
  *
- * @param propValue {*} The value which will be validated.
- * @param propName{String} The name which will be logged in case of errors.
- * @param el {HTMLElement} The element on which the value was expected on.
- * @returns {{result: boolean, value: *}}
+ * @param val {*} The value which will be validated.
+ * @returns {*} Either an undefined or the value which was passed to the validator.
  *
  */
-export const isOptional = (propValue, propName, el) => {
-	const isPropInProps = isDefined(propValue);
+export const isOptional = val => {
+	const isValueDefined = isDefined(val);
 
-	if (!isPropInProps) {
-		logger.info('The prop "' + propName + '" is optional and wasn‘t found on: ', el);
+	// Fail safe to have a conssitent return value
+	// if "null" was passed as the value.
+	if (!isValueDefined) {
+		return undefined;
 	}
 
-	return {
-		result: true,
-		value: propValue
-	};
+	return val;
 };

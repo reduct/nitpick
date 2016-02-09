@@ -7,24 +7,20 @@ describe('@reduct/nitpick: propTypes.object', () => {
 			expect(isRequired).to.be.defined;
 		});
 
-		it('should return an object containing a result and value when called.', () => {
-			expect(isRequired({})).to.have.all.keys(['result', 'value']);
+		it('should return an error if no value was passed.', () => {
+			expect(isRequired()).to.be.an.instanceof(Error);
 		});
 
-		it('should return a positive result if a valid Object was passed.', () => {
-			expect(isRequired({}).result).to.be.true;
+		it('should return an error if no valid Object was passed.', () => {
+			expect(isRequired('test')).to.be.an.instanceof(Error);
 		});
 
-		it('should return a positive result if the argument which was passed is a String but contains a JSON Object.', () => {
-			expect(isRequired('{ "key": "value" }').result).to.be.true;
+		it('should return the passed argument if it is a valid Object.', () => {
+			expect(isRequired({})).to.be.an('object');
 		});
 
-		it('should return the passed argument as the returning value.', () => {
-			expect(isRequired({}).value).to.be.an('object');
-		});
-
-		it('should return a valid JSON Object as the returning value if the passed argument is a String but Contains a JSON Object.', () => {
-			expect(isRequired('{ "key": "value" }').value).to.deep.equal({
+		it('should convert and return a object if the passed argument is a String but contains a JSON Object.', () => {
+			expect(isRequired('{ "key": "value" }')).to.deep.equal({
 				key: "value"
 			});
 		});
@@ -35,30 +31,20 @@ describe('@reduct/nitpick: propTypes.object', () => {
 			expect(isOptional).to.be.defined;
 		});
 
-		it('should return an object containing a result and value when called.', () => {
-			expect(isOptional({})).to.have.all.keys(['result', 'value']);
+		it('should return "undefined" if no value was passed.', () => {
+			expect(isOptional()).to.equal(undefined);
 		});
 
-		it('should return a positive result with no arguments passed.', () => {
-			expect(isOptional().result).to.be.true;
+		it('should return an error if no valid Object was passed.', () => {
+			expect(isOptional('test')).to.be.an.instanceof(Error);
 		});
 
-		it('should return a positive result if the argument which was passed is a String and contains a JSON Object.', () => {
-			expect(isOptional('{ "key": "value" }').result).to.be.true;
+		it('should return the passed argument if it is a valid Object.', () => {
+			expect(isOptional({})).to.be.an('object');
 		});
 
-		it('should return a positive result if the argument which was passed is an Object.', () => {
-			expect(isOptional({}).result).to.be.true;
-		});
-
-		it('should return the passed argument as the returning value.', () => {
-			const value = {};
-
-			expect(isOptional(value).value).to.equal(value);
-		});
-
-		it('should return a valid JSON Object as the returning value if the passed argument is a String but Contains a JSON Object.', () => {
-			expect(isOptional('{ "key": "value" }').value).to.deep.equal({
+		it('should convert and return a object if the passed argument is a String but contains a JSON Object.', () => {
+			expect(isOptional('{ "key": "value" }')).to.deep.equal({
 				key: "value"
 			});
 		});

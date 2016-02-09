@@ -7,20 +7,16 @@ describe('@reduct/nitpick: propTypes.any', () => {
 			expect(isRequired).to.be.defined;
 		});
 
-		it('should return an object containing a result and value when called.', () => {
-			expect(isRequired('Prop')).to.have.all.keys(['result', 'value']);
+		it('should return an error if no value was passed.', () => {
+			expect(isRequired()).to.be.an.instanceof(Error);
 		});
 
-		it('should return a positive result if an argument was passed.', () => {
-			expect(isRequired('Prop').result).to.be.true;
+		it('should return the value if one was passed.', () => {
+			expect(isRequired('Prop')).to.equal('Prop');
 		});
 
-		it('should return a positive result even if the argument passed argument is "false".', () => {
-			expect(isRequired(false).result).to.be.true;
-		});
-
-		it('should return the passed argument as the returning value.', () => {
-			expect(isRequired('Prop').value).to.equal('Prop');
+		it('should return the value and no Error even if the argument passed argument is "false".', () => {
+			expect(isRequired(false)).to.equal(false);
 		});
 	});
 
@@ -29,16 +25,16 @@ describe('@reduct/nitpick: propTypes.any', () => {
 			expect(isOptional).to.be.defined;
 		});
 
-		it('should return an object containing a result and value when called.', () => {
-			expect(isOptional()).to.have.all.keys(['result', 'value']);
+		it('should return "undefined" if no value was passed.', () => {
+			expect(isOptional()).to.equal(undefined);
 		});
 
-		it('should return a positive result if no arguments where passed.', () => {
-			expect(isOptional().result).to.be.true;
+		it('should return "undefined" if "null" passed to have a consistent return value.', () => {
+			expect(isOptional(null)).to.equal(undefined);
 		});
 
-		it('should return the passed argument as the returning value.', () => {
-			expect(isOptional('Prop').value).to.equal('Prop');
+		it('should return the value if one was passed.', () => {
+			expect(isOptional('test')).to.equal('test');
 		});
 	});
 });

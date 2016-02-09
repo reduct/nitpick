@@ -1,60 +1,48 @@
 import {
 	isNumeric,
-	logger
+	isError,
+	isDefined,
+	isString
 } from './utilities/';
 import * as any from './any.js';
 
 /**
  * Extends the general required validator for the type `Number`.
  *
- * @param propValue {*} The value which will be validated.
- * @param propName {String} The name which will be logged in case of errors.
- * @param el {HTMLElement} The element on which the value was expected on.
- * @returns {{result: boolean, value: *}}
+ * @param val {*} The value which will be validated.
+ * @returns {Error|*} Either an error or the value if it is a valid Boolean.
  *
  */
-export const isRequired = (propValue, propName, el) => {
-	const isNumber = isNumeric(propValue);
-	let result = true;
+export const isRequired = val => {
+	const requiredResult = any.isRequired(val);
+	const convertedNumber = isString(val) ? Math.abs(val) : val;
+	const isNumber = isNumeric(convertedNumber);
 
-	// Since The prop is required, check for it's value beforehand.
-	any.isRequired.apply(this, arguments);
-
-	if (!isNumber) {
-		logger.error('The prop "' + propName + '" is not a number. ', el);
-		result = false;
-	} else {
-		propValue = Math.abs(propValue);
+	if (isError(requiredResult)) {
+		return requiredResult;
 	}
 
-	return {
-		result: result,
-		value: propValue
-	};
+	if (!isNumber) {
+		return new Error(`The value is required and must be a "Number", instead got "${typeof val}".`);
+	}
+
+	return convertedNumber;
 };
 
 /**
  * Extends the general optional validator for the type `Number`.
  *
- * @param propValue {*} The value which will be validated.
- * @param propName {String} The name which will be logged in case of errors.
- * @param el {HTMLElement} The element on which the value was expected on.
- * @returns {{result: boolean, value: *}}
+ * @param val {*} The value which will be validated.
+ * @returns {Error|*} Either an error or the value which was passed to the validator.
  *
  */
-export const isOptional = (propValue, propName, el) => {
-	const isNumber = isNumeric(propValue);
-	let result = true;
+export const isOptional = val => {
+	const convertedNumber = isString(val) ? Math.abs(val) : val;
+	const isValueNotNumeric = !isNumeric(convertedNumber);
 
-	if (propValue && !isNumber) {
-		logger.error('The prop "' + propName + '" is not a number. ', el);
-		result = false;
+	if (isDefined(val) && isValueNotNumeric) {
+		return new Error(`The value is optional, but must be a "Number", instead got "${typeof val}".`);
 	}
 
-	propValue = Math.abs(propValue);
-
-	return {
-		result: result,
-		value: isNumeric(propValue) ? propValue : undefined
-	};
+	return convertedNumber;
 };

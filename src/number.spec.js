@@ -7,24 +7,20 @@ describe('@reduct/nitpick: propTypes.number', () => {
 			expect(isRequired).to.be.defined;
 		});
 
-		it('should return an object containing a result and value when called.', () => {
-			expect(isRequired(2)).to.have.all.keys(['result', 'value']);
+		it('should return an error if no value was passed.', () => {
+			expect(isRequired()).to.be.an.instanceof(Error);
 		});
 
-		it('should return a positive result if a valid Number was passed.', () => {
-			expect(isRequired(2).result).to.be.true;
+		it('should return an error if no valid Number was passed.', () => {
+			expect(isRequired('test')).to.be.an.instanceof(Error);
 		});
 
-		it('should return a positive result if the argument which was passed is a String but contains a Number.', () => {
-			expect(isRequired('0').result).to.be.true;
+		it('should return the passed value when called with a valid Number.', () => {
+			expect(isRequired(2)).to.equal(2);
 		});
 
-		it('should return the passed argument as the returning value.', () => {
-			expect(isRequired(0).value).to.equal(0);
-		});
-
-		it('should return a Number as the returning value if the passed argument is a String but Contains a Number.', () => {
-			expect(isRequired('0').value).to.equal(0);
+		it('should convert and return the passed value when called with a string which contains a Number.', () => {
+			expect(isRequired('2')).to.equal(2);
 		});
 	});
 
@@ -33,28 +29,20 @@ describe('@reduct/nitpick: propTypes.number', () => {
 			expect(isOptional).to.be.defined;
 		});
 
-		it('should return an object containing a result and value when called.', () => {
-			expect(isOptional()).to.have.all.keys(['result', 'value']);
+		it('should return "undefined" if no value was passed.', () => {
+			expect(isOptional()).to.equal(undefined);
 		});
 
-		it('should return a positive result with no arguments passed.', () => {
-			expect(isOptional().result).to.be.true;
+		it('should return an error if a value was passed but it is not a valid Number.', () => {
+			expect(isOptional('test')).to.be.an.instanceof(Error);
 		});
 
-	    it('should return a positive result if the argument which was passed is a Number.', () => {
-			expect(isOptional(0).result).to.be.true;
+		it('should return the passed value when called with a valid Number.', () => {
+			expect(isOptional(2)).to.equal(2);
 		});
 
-	    it('should return a positive result if the argument which was passed is a String but contains a Number.', () => {
-			expect(isOptional('0').result).to.be.true;
-		});
-
-	    it('should return the passed argument as the returning value.', () => {
-			expect(isOptional(0).value).to.equal(0);
-		});
-
-	    it('should return a Number as the returning value if the passed argument is a String but Contains a Number.', () => {
-			expect(isOptional('0').value).to.equal(0);
+		it('should convert and return the passed value when called with a string which contains a Number.', () => {
+			expect(isOptional('2')).to.equal(2);
 		});
 	});
 });
