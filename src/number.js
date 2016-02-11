@@ -1,3 +1,5 @@
+import abstractRequiredValidator from './abstractRequiredValidator.js';
+import abstractValidator from './abstractValidator.js';
 import {
 	isNumeric,
 	isError,
@@ -13,21 +15,16 @@ import * as any from './any.js';
  * @returns {Error|*} Either an error or the value if it is a valid Boolean.
  *
  */
-export const isRequired = val => {
-	const requiredResult = any.isRequired(val);
+export const isRequired = abstractRequiredValidator(val => {
 	const convertedNumber = isString(val) ? Math.abs(val) : val;
 	const isNumber = isNumeric(convertedNumber);
-
-	if (isError(requiredResult)) {
-		return requiredResult;
-	}
 
 	if (!isNumber) {
 		return new Error(`The value is required and must be a "Number", instead got "${typeof val}".`);
 	}
 
 	return convertedNumber;
-};
+});
 
 /**
  * Extends the general optional validator for the type `Number`.
@@ -36,7 +33,7 @@ export const isRequired = val => {
  * @returns {Error|*} Either an error or the value which was passed to the validator.
  *
  */
-export const isOptional = val => {
+export const isOptional = abstractValidator(val => {
 	const convertedNumber = isString(val) ? Math.abs(val) : val;
 	const isValueNotNumeric = !isNumeric(convertedNumber);
 
@@ -45,4 +42,4 @@ export const isOptional = val => {
 	}
 
 	return convertedNumber;
-};
+});

@@ -8,15 +8,19 @@ describe('@reduct/nitpick: propTypes.string', () => {
 		});
 
 		it('should return an error if no value was passed.', () => {
-			expect(isRequired()).to.be.an.instanceof(Error);
+			expect(isRequired({}, 'myProp')).to.be.an.instanceof(Error);
 		});
 
 		it('should return an error if no valid Object was passed.', () => {
-			expect(isRequired(2)).to.be.an.instanceof(Error);
+			expect(isRequired({
+				myProp: 2
+			}, 'myProp')).to.be.an.instanceof(Error);
 		});
 
 		it('should return the passed argument if it is a valid Object.', () => {
-			expect(isRequired('test')).to.equal('test');
+			expect(isRequired({
+				myProp: 'foo'
+			}, 'myProp')).to.equal('foo');
 		});
 	});
 
@@ -26,15 +30,19 @@ describe('@reduct/nitpick: propTypes.string', () => {
 		});
 
 		it('should return "undefined" if no value was passed.', () => {
-			expect(isOptional()).to.equal(undefined);
+			expect(isOptional({}, 'myProp')).to.equal(undefined);
 		});
 
 		it('should return an error if no valid Object was passed.', () => {
-			expect(isOptional(2)).to.be.an.instanceof(Error);
+			expect(isOptional({
+				myProp: 2
+			}, 'myProp')).to.be.an.instanceof(Error);
 		});
 
 		it('should return the passed argument if it is a valid Object.', () => {
-			expect(isOptional('test')).to.equal('test');
+			expect(isOptional({
+				myProp: 'foo'
+			}, 'myProp')).to.equal('foo');
 		});
 	});
 });

@@ -1,7 +1,8 @@
+import abstractRequiredValidator from './abstractRequiredValidator.js';
+import abstractValidator from './abstractValidator.js';
 import {
 	isBoolean,
 	isDefined,
-	isError,
 	convertStringBoolean
 } from './utilities/';
 import * as any from './any.js';
@@ -13,21 +14,16 @@ import * as any from './any.js';
  * @returns {Error|*} Either an Error of the passed value if defined.
  *
  */
-export const isRequired = val => {
-	const requiredResult = any.isRequired(val);
+export const isRequired = abstractRequiredValidator(val => {
 	const convertedBoolean = convertStringBoolean(val);
 	const isValueNotBool = !isBoolean(convertedBoolean);
-
-	if (isError(requiredResult)) {
-		return requiredResult;
-	}
 
 	if (isValueNotBool) {
 		return new Error(`The value is required and must be a "Boolean", instead got "${typeof val}".`);
 	}
 
 	return convertedBoolean;
-};
+});
 
 /**
  * Extends the general optional validator for the type `Boolean`.
@@ -36,7 +32,7 @@ export const isRequired = val => {
  * @returns {Error|*} Either an error or the value which was passed to the validator.
  *
  */
-export const isOptional = val => {
+export const isOptional = abstractValidator(val => {
 	const convertedBoolean = convertStringBoolean(val);
 	const isValueNotBool = !isBoolean(convertedBoolean);
 
@@ -45,4 +41,4 @@ export const isOptional = val => {
 	}
 
 	return convertedBoolean;
-};
+});

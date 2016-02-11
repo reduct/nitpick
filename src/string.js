@@ -1,3 +1,5 @@
+import abstractRequiredValidator from './abstractRequiredValidator.js';
+import abstractValidator from './abstractValidator.js';
 import {
 	isDefined,
 	isString,
@@ -12,20 +14,15 @@ import * as any from './any.js';
  * @returns {Error|*} Either an Error of the passed value if defined.
  *
  */
-export const isRequired = val => {
-	const requiredResult = any.isRequired(val);
+export const isRequired = abstractRequiredValidator(val => {
 	const isValueNotValidString = !isString(val);
-
-	if (isError(requiredResult)) {
-		return requiredResult;
-	}
 
 	if (isValueNotValidString) {
 		return new Error(`The value is required and must be a "String", instead got "${typeof val}".`);
 	}
 
 	return val;
-};
+});
 
 
 /**
@@ -35,7 +32,7 @@ export const isRequired = val => {
  * @returns {Error|*} Either an error or the value which was passed to the validator.
  *
  */
-export const isOptional = val => {
+export const isOptional = abstractValidator(val => {
 	const isValueNoString = !isString(val);
 
 	if (isDefined(val) && isValueNoString) {
@@ -43,4 +40,4 @@ export const isOptional = val => {
 	}
 
 	return isDefined(val) ? val : undefined;
-};
+});

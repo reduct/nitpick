@@ -8,19 +8,25 @@ describe('@reduct/nitpick: propTypes.object', () => {
 		});
 
 		it('should return an error if no value was passed.', () => {
-			expect(isRequired()).to.be.an.instanceof(Error);
+			expect(isRequired({}, 'myProp')).to.be.an.instanceof(Error);
 		});
 
 		it('should return an error if no valid Object was passed.', () => {
-			expect(isRequired('test')).to.be.an.instanceof(Error);
+			expect(isRequired({
+				myProp: 'foo'
+			}, 'myProp')).to.be.an.instanceof(Error);
 		});
 
 		it('should return the passed argument if it is a valid Object.', () => {
-			expect(isRequired({})).to.be.an('object');
+			expect(isRequired({
+				myProp: {}
+			}, 'myProp')).to.be.an('object');
 		});
 
 		it('should convert and return a object if the passed argument is a String but contains a JSON Object.', () => {
-			expect(isRequired('{ "key": "value" }')).to.deep.equal({
+			expect(isRequired({
+				myProp: '{ "key": "value" }'
+			}, 'myProp')).to.deep.equal({
 				key: "value"
 			});
 		});
@@ -32,19 +38,25 @@ describe('@reduct/nitpick: propTypes.object', () => {
 		});
 
 		it('should return "undefined" if no value was passed.', () => {
-			expect(isOptional()).to.equal(undefined);
+			expect(isOptional({}, 'myProp')).to.equal(undefined);
 		});
 
 		it('should return an error if no valid Object was passed.', () => {
-			expect(isOptional('test')).to.be.an.instanceof(Error);
+			expect(isOptional({
+				myProp: 'foo'
+			}, 'myProp')).to.be.an.instanceof(Error);
 		});
 
 		it('should return the passed argument if it is a valid Object.', () => {
-			expect(isOptional({})).to.be.an('object');
+			expect(isOptional({
+				myProp: {}
+			}, 'myProp')).to.be.an('object');
 		});
 
 		it('should convert and return a object if the passed argument is a String but contains a JSON Object.', () => {
-			expect(isOptional('{ "key": "value" }')).to.deep.equal({
+			expect(isOptional({
+				myProp: '{ "key": "value" }'
+			}, 'myProp')).to.deep.equal({
 				key: "value"
 			});
 		});

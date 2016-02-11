@@ -1,3 +1,5 @@
+import abstractRequiredValidator from './abstractRequiredValidator.js';
+import abstractValidator from './abstractValidator.js';
 import {isDefined} from './utilities/';
 
 /**
@@ -7,15 +9,7 @@ import {isDefined} from './utilities/';
  * @returns {Error|*} Either an Error of the passed value if defined.
  *
  */
-export const isRequired = val => {
-	const isValueDefined = isDefined(val);
-
-	if (!isValueDefined) {
-		return new Error(`The value is required but is either "undefined" or "null".`);
-	}
-
-	return val;
-};
+export const isRequired = abstractRequiredValidator();
 
 /**
  * Represents a general optional check against a value.
@@ -24,7 +18,7 @@ export const isRequired = val => {
  * @returns {*} Either an undefined or the value which was passed to the validator.
  *
  */
-export const isOptional = val => {
+export const isOptional = abstractValidator(val => {
 	const isValueDefined = isDefined(val);
 
 	// Fail safe to have a conssitent return value
@@ -34,4 +28,4 @@ export const isOptional = val => {
 	}
 
 	return val;
-};
+});
