@@ -8,19 +8,25 @@ describe('@reduct/nitpick: propTypes.number', () => {
 		});
 
 		it('should return an error if no value was passed.', () => {
-			expect(isRequired()).to.be.an.instanceof(Error);
+			expect(isRequired({}, 'myProp')).to.be.an.instanceof(Error);
 		});
 
 		it('should return an error if no valid Number was passed.', () => {
-			expect(isRequired('test')).to.be.an.instanceof(Error);
+			expect(isRequired({
+				myProp: 'foo'
+			}, 'myProp')).to.be.an.instanceof(Error);
 		});
 
 		it('should return the passed value when called with a valid Number.', () => {
-			expect(isRequired(2)).to.equal(2);
+			expect(isRequired({
+				myProp: 2
+			}, 'myProp')).to.equal(2);
 		});
 
 		it('should convert and return the passed value when called with a string which contains a Number.', () => {
-			expect(isRequired('2')).to.equal(2);
+			expect(isRequired({
+				myProp: '2'
+			}, 'myProp')).to.equal(2);
 		});
 	});
 
@@ -30,19 +36,25 @@ describe('@reduct/nitpick: propTypes.number', () => {
 		});
 
 		it('should return "undefined" if no value was passed.', () => {
-			expect(isOptional()).to.equal(undefined);
+			expect(isOptional({}, 'myProp')).to.equal(undefined);
 		});
 
 		it('should return an error if a value was passed but it is not a valid Number.', () => {
-			expect(isOptional('test')).to.be.an.instanceof(Error);
+			expect(isOptional({
+				myProp: 'foo'
+			}, 'myProp')).to.be.an.instanceof(Error);
 		});
 
 		it('should return the passed value when called with a valid Number.', () => {
-			expect(isOptional(2)).to.equal(2);
+			expect(isOptional({
+				myProp: 2
+			}, 'myProp')).to.equal(2);
 		});
 
 		it('should convert and return the passed value when called with a string which contains a Number.', () => {
-			expect(isOptional('2')).to.equal(2);
+			expect(isOptional({
+				myProp: '2'
+			}, 'myProp')).to.equal(2);
 		});
 	});
 });

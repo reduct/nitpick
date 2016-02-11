@@ -8,27 +8,37 @@ describe('@reduct/nitpick: propTypes.bool', () => {
 		});
 
 		it('should return an error if no value was passed.', () => {
-			expect(isRequired()).to.be.an.instanceof(Error);
+			expect(isRequired({}, 'myProp')).to.be.an.instanceof(Error);
 		});
 
 		it('should return an error if no valid Boolean was passed.', () => {
-			expect(isRequired('test')).to.be.an.instanceof(Error);
+			expect(isRequired({
+				myProp: 'foo'
+			}, 'myProp')).to.be.an.instanceof(Error);
 		});
 
 		it('should return the passed value when called with a valid truthy Boolean.', () => {
-			expect(isRequired(true)).to.equal(true);
+			expect(isRequired({
+				myProp: true
+			}, 'myProp')).to.equal(true);
 		});
 
 		it('should return the passed value when called with a valid falsy Boolean.', () => {
-			expect(isRequired(false)).to.equal(false);
+			expect(isRequired({
+				myProp: false
+			}, 'myProp')).to.equal(false);
 		});
 
 		it('should return convert the value if called with a string which consists of "true".', () => {
-			expect(isRequired('true')).to.equal(true);
+			expect(isRequired({
+				myProp: 'true'
+			}, 'myProp')).to.equal(true);
 		});
 
 		it('should return convert the value if called with a string which consists of "false".', () => {
-			expect(isRequired('false')).to.equal(false);
+			expect(isRequired({
+				myProp: 'false'
+			}, 'myProp')).to.equal(false);
 		});
 	});
 
@@ -38,27 +48,37 @@ describe('@reduct/nitpick: propTypes.bool', () => {
 		});
 
 		it('should return "undefined" if no value was passed.', () => {
-			expect(isOptional()).to.equal(undefined);
+			expect(isOptional({}, 'myProp')).to.equal(undefined);
 		});
 
 		it('should return an error if a value was passed but it is not a valid Boolean.', () => {
-			expect(isOptional('test')).to.be.an.instanceof(Error);
+			expect(isOptional({
+				myProp: 'foo'
+			}, 'myProp')).to.be.an.instanceof(Error);
 		});
 
 		it('should return the passed value when called with a valid truthy Boolean.', () => {
-			expect(isOptional(true)).to.equal(true);
+			expect(isOptional({
+				myProp: true
+			}, 'myProp')).to.equal(true);
 		});
 
 		it('should return the passed value when called with a valid falsy Boolean.', () => {
-			expect(isOptional(false)).to.equal(false);
+			expect(isOptional({
+				myProp: false
+			}, 'myProp')).to.equal(false);
 		});
 
 		it('should return convert the value if called with a string which consists of "true".', () => {
-			expect(isOptional('true')).to.equal(true);
+			expect(isOptional({
+				myProp: 'true'
+			}, 'myProp')).to.equal(true);
 		});
 
 		it('should return convert the value if called with a string which consists of "false".', () => {
-			expect(isOptional('false')).to.equal(false);
+			expect(isOptional({
+				myProp: 'false'
+			}, 'myProp')).to.equal(false);
 		});
 	});
 });

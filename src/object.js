@@ -1,3 +1,5 @@
+import abstractRequiredValidator from './abstractRequiredValidator.js';
+import abstractValidator from './abstractValidator.js';
 import {
 	isDefined,
 	isError,
@@ -12,14 +14,8 @@ import * as any from './any.js';
  * @returns {Error|*} Either an Error of the passed value if defined.
  *
  */
-export const isRequired = val => {
-	const requiredResult = any.isRequired(val);
-
-	if (isError(requiredResult)) {
-		return requiredResult;
-	}
-
-    // Try to convert the value to a JSON object.
+export const isRequired = abstractRequiredValidator(val => {
+	// Try to convert the value to a JSON object.
 	try {
 		val = JSON.parse(val);
 	} catch (e) {}
@@ -29,7 +25,7 @@ export const isRequired = val => {
 	}
 
 	return val;
-};
+});
 
 
 /**
@@ -39,7 +35,7 @@ export const isRequired = val => {
  * @returns {Error|*} Either an error or the value which was passed to the validator.
  *
  */
-export const isOptional = val => {
+export const isOptional = abstractValidator(val => {
 	// Try to convert the value to a JSON object.
 	try {
 		val = JSON.parse(val);
@@ -50,4 +46,4 @@ export const isOptional = val => {
 	}
 
 	return val;
-};
+});
