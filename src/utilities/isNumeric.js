@@ -6,5 +6,5 @@
  *
  */
 export function isNumeric(num) {
-	return !isNaN(num);
+	return !isNaN(num) && num !== null && num !== true && num !== false;
 }
