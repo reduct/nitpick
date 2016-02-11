@@ -1,4 +1,4 @@
-import chai, {expect} from 'chai';
+import {expect} from 'chai';
 import {isBoolean} from './isBoolean.js';
 
 describe('@reduct/nitpick: utilities.isBoolean', () => {
@@ -6,7 +6,7 @@ describe('@reduct/nitpick: utilities.isBoolean', () => {
 		expect(isBoolean(true)).to.equal(true);
 	});
 
-    it('should return a positive result if a falsy boolean was passed.', () => {
+	it('should return a positive result if a falsy boolean was passed.', () => {
 		expect(isBoolean(false)).to.equal(true);
 	});
 
@@ -23,6 +23,6 @@ describe('@reduct/nitpick: utilities.isBoolean', () => {
 	});
 
 	it('should return a negative result if the passed value is a function.', () => {
-		expect(isBoolean(() => {})).to.equal(false);
+		expect(isBoolean(() => null)).to.equal(false);
 	});
 });

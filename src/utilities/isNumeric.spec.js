@@ -1,4 +1,4 @@
-import chai, {expect} from 'chai';
+import {expect} from 'chai';
 import {isNumeric} from './isNumeric.js';
 
 describe('@reduct/nitpick: utilities.isNumeric', () => {
@@ -27,7 +27,7 @@ describe('@reduct/nitpick: utilities.isNumeric', () => {
 	});
 
 	it('should return a negative result if the passed value is a function.', () => {
-		expect(isNumeric(() => {})).to.equal(false);
+		expect(isNumeric(() => null)).to.equal(false);
 	});
 
 	it('should return a positive result if the passed value is a number.', () => {

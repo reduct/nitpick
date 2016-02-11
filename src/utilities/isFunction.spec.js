@@ -1,4 +1,4 @@
-import chai, {expect} from 'chai';
+import {expect} from 'chai';
 import {isFunction} from './isFunction.js';
 
 describe('@reduct/nitpick: utilities.isFunction', () => {
@@ -31,6 +31,6 @@ describe('@reduct/nitpick: utilities.isFunction', () => {
 	});
 
 	it('should return a positive result if the passed value is a function.', () => {
-		expect(isFunction(() => {})).to.equal(true);
+		expect(isFunction(() => null)).to.equal(true);
 	});
 });

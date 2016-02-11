@@ -1,4 +1,4 @@
-import chai, {expect} from 'chai';
+import {expect} from 'chai';
 import {isObject} from './isObject.js';
 
 describe('@reduct/nitpick: utilities.isObject', () => {
@@ -23,7 +23,7 @@ describe('@reduct/nitpick: utilities.isObject', () => {
 	});
 
 	it('should return a negative result if the passed value is a function.', () => {
-		expect(isObject(() => {})).to.equal(false);
+		expect(isObject(() => null)).to.equal(false);
 	});
 
 	it('should return a negative result if the passed value is a number.', () => {

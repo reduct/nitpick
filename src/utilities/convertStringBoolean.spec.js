@@ -1,4 +1,4 @@
-import chai, {expect} from 'chai';
+import {expect} from 'chai';
 import {convertStringBoolean} from './convertStringBoolean.js';
 
 describe('@reduct/nitpick: utilities.convertStringBoolean', () => {

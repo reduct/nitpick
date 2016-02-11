@@ -1,4 +1,4 @@
-import chai, {expect} from 'chai';
+import {expect} from 'chai';
 import {isError} from './isError.js';
 
 describe('@reduct/nitpick: utilities.isError', () => {
@@ -31,7 +31,7 @@ describe('@reduct/nitpick: utilities.isError', () => {
 	});
 
 	it('should return a negative result if the passed value is a function.', () => {
-		expect(isError(() => {})).to.equal(false);
+		expect(isError(() => null)).to.equal(false);
 	});
 
 	it('should return a positive result if the passed value is an Error object.', () => {

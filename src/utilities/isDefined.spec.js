@@ -1,4 +1,4 @@
-import chai, {expect} from 'chai';
+import {expect} from 'chai';
 import {isDefined} from './isDefined.js';
 
 describe('@reduct/nitpick: utilities.isDefined', () => {
@@ -31,6 +31,6 @@ describe('@reduct/nitpick: utilities.isDefined', () => {
 	});
 
 	it('should return a positive result if the passed value is a function.', () => {
-		expect(isDefined(() => {})).to.equal(true);
+		expect(isDefined(() => null)).to.equal(true);
 	});
 });
