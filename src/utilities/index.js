@@ -1,3 +1,4 @@
+import {compose} from './compose.js';
 import {convertStringBoolean} from './convertStringBoolean.js';
 import {isArray} from './isArray.js';
 import {isBoolean} from './isBoolean.js';
@@ -9,6 +10,7 @@ import {isObject} from './isObject.js';
 import {isString} from './isString.js';
 
 export {
+	compose,
 	convertStringBoolean,
 	isArray,
 	isBoolean,
