@@ -9,7 +9,7 @@ import {isError} from './isError';
  *
  */
 export const combinePropTypes = (...propTypes) => (props, propName) => {
-	for (var i = 0, len = propTypes.length - 1; i < len; i++) {
+	for (let i = 0, len = propTypes.length - 1; i < len; i++) {
 		const validationResult = propTypes[i](props, propName);
 		if (isError(validationResult)) {
 			return validationResult;
@@ -17,4 +17,4 @@ export const combinePropTypes = (...propTypes) => (props, propName) => {
 	}
 
 	return propTypes[propTypes.length - 1](props, propName);
-}
+};
