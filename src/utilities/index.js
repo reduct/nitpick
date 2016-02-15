@@ -1,3 +1,4 @@
+import {combinePropTypes} from './combinePropTypes.js';
 import {compose} from './compose.js';
 import {convertStringBoolean} from './convertStringBoolean.js';
 import {isArray} from './isArray.js';
@@ -10,6 +11,7 @@ import {isObject} from './isObject.js';
 import {isString} from './isString.js';
 
 export {
+	combinePropTypes,
 	compose,
 	convertStringBoolean,
 	isArray,

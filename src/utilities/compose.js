@@ -1,5 +1,5 @@
 /**
- * Compose various functions
+ * Compose various functions.
  *
  * @param ...funcs {...Function} The functions that will be composed
  * @returns {Function}
